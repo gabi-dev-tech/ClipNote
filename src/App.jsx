@@ -47,14 +47,13 @@ export default function App() {
   };
 
   const handleDelete = (titleDelete) => {
-    console.log(
-      "encodeURIComponent(titleDelete)",
-      encodeURIComponent(titleDelete)
-    );
+    const confirmed = window.confirm("¿Desea eliminar la nota?");
+    if (!confirmed) return;
+    const cleanTitle = titleDelete.trim();
     fetch(URL, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `action=delete&Titulo=${encodeURIComponent(titleDelete)}`,
+      body: `action=delete&Titulo=${encodeURIComponent(cleanTitle)}`,
     })
       .then((response) => {
         if (!response.ok) {
@@ -86,7 +85,7 @@ export default function App() {
               <div key={index} className="card cart">
                 <div className="flex flex-row justify-between">
                   <label className="title"> {`Nota ${index + 1}`} </label>
-                  <button className="mr-4" onClick={() => handleDelete(el[0])}>
+                  <button className="mr-4" onClick={() => handleDelete(el[0]) }>
                     <CgCloseO />
                   </button>
                 </div>
