@@ -130,6 +130,13 @@
     background-color: transparent;
 }
 
+.coupons form label {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: gray;
+}
+
 .coupons form button {
     display: flex;
     flex-direction: row;
