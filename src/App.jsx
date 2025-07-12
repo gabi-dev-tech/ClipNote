@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { HiOutlineAnnotation } from "react-icons/hi";
 import { CgCloseO } from "react-icons/cg";
 import Loader from "./components/Loader";
+import Swal from "sweetalert2";
 
 export default function App() {
   const URL = import.meta.env.VITE_API_URL;
   const [data, setData] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  // const Swal = require("sweetalert2");
 
   const getNotes = () => {
     fetch(URL)
@@ -35,7 +37,12 @@ export default function App() {
         return response;
       })
       .then((data) => {
-        alert("Nota agregada correctamente");
+        // alert("Nota agregada correctamente");
+        Swal.fire({
+          title: "Nota agregada correctamente.",
+          icon: "success",
+          draggable: true,
+        });
         setTitle("");
         setContent("");
         getNotes();
@@ -47,28 +54,47 @@ export default function App() {
   };
 
   const handleDelete = (titleDelete) => {
-    const confirmed = window.confirm("¿Desea eliminar la nota?");
-    if (!confirmed) return;
-    const cleanTitle = titleDelete.trim();
-    fetch(URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `action=delete&Titulo=${encodeURIComponent(cleanTitle)}`,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al eliminar la nota");
-        }
-        return response;
-      })
-      .then(() => {
-        getNotes();
-        alert("Se elimino la Nota!");
-      })
-      .catch((error) => {
-        alert("Error al eliminar");
-        console.error(error);
-      });
+    Swal.fire({
+      title: "Estas seguro?",
+      text: "No puedes revertir estos cambios!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d63030ff",
+      cancelButtonColor: "#000000",
+      confirmButtonText: "Si, eliminar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Eliminado!",
+          text: "La nota a sido eliminada",
+          icon: "success",
+        });
+        fetch(URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `action=delete&Titulo=${encodeURIComponent(titleDelete)}`,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error al eliminar la nota");
+            }
+            return response;
+          })
+          .then(() => {
+            setData([]);
+            getNotes();
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Error al Eliminar",
+              // footer: '<a href="#">Why do I have this issue?</a>',
+            });
+            console.error(error);
+          });
+      }
+    });
   };
 
   useEffect(() => {
@@ -85,7 +111,7 @@ export default function App() {
               <div key={index} className="card cart">
                 <div className="flex flex-row justify-between">
                   <label className="title"> {`Nota ${index + 1}`} </label>
-                  <button className="mr-4" onClick={() => handleDelete(el[0]) }>
+                  <button className="mr-4" onClick={() => handleDelete(el[0])}>
                     <CgCloseO />
                   </button>
                 </div>
