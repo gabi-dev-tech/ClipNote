@@ -75,7 +75,7 @@ export default function App() {
         fetch(URL, {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: `action=delete&Titulo=${titleDelete}`,
+          body: `action=delete&ID=${titleDelete}`,
         })
           .then((response) => {
             if (!response.ok) {
@@ -110,6 +110,7 @@ export default function App() {
       <div className="master-container">
         {data.length > 0 ? (
           data.map((el, index) => {
+            console.log("elemento -->", el[0]);
             return (
               <div key={index} className="card cart">
                 <div className="flex flex-row justify-between">
@@ -123,8 +124,8 @@ export default function App() {
                   <div className="product">
                     <HiOutlineAnnotation size={50} />
                     <div>
-                      <span>{el[0]}</span>
-                      <p>{el[1]}</p>
+                      <span>{el[1]}</span>
+                      <p>{el[2]}</p>
                     </div>
                   </div>
                 </div>
