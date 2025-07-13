@@ -132,7 +132,9 @@ export default function App() {
 
   return (
     <div className="flex flex-col justify-center items-center gap-8">
-      <h1 className="font-mono text-4xl font-extrabold">ClipNote</h1>
+      <div class="typing-animation-container">
+        <span class="typing font-mono text-4xl font-extrabold mt-4">ClipNote</span>
+      </div>
       <div className="master-container">
         {data.length > 0 ? (
           <DragDropContext onDragEnd={onDragEnd}>
@@ -157,7 +159,9 @@ export default function App() {
                             className="card cart"
                           >
                             <div className="flex flex-row justify-between">
-                              <label className="title">{`Nota ${el[0]}`}</label>
+                              <label className="title">{`Nota ${
+                                index + 1
+                              }`}</label>
                               <button
                                 className="mr-4"
                                 onClick={() => handleDelete(el[0])}
@@ -200,6 +204,9 @@ export default function App() {
               className="input_field"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
+              minLength={3}
+              maxLength={50}
             />
             <label>Contenido</label>
             <input
@@ -208,6 +215,9 @@ export default function App() {
               className="input_field"
               value={content}
               onChange={(e) => setContent(e.target.value)}
+              required
+              minLength={3}
+              maxLength={50}
             />
             <button
               type="submit"
