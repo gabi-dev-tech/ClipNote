@@ -1,8 +1,8 @@
 export default function Checkout() {
   return (
-    <div class="card checkout">
-      <label class="title">Checkout</label>
-      <div class="details">
+    <div className="card checkout">
+      <label className="title">Checkout</label>
+      <div className="details">
         <span>Your cart subtotal:</span>
         <span>47.99$</span>
         <span>Discount through applied coupons:</span>
@@ -10,11 +10,11 @@ export default function Checkout() {
         <span>Shipping fees:</span>
         <span>4.99$</span>
       </div>
-      <div class="checkout--footer">
-        <label class="price">
+      <div className="checkout--footer">
+        <label className="price">
           <sup>$</sup>57.99
         </label>
-        <button class="checkout-btn">Checkout</button>
+        <button className="checkout-btn">Checkout</button>
       </div>
     </div>
   );

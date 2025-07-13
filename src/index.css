@@ -6,6 +6,13 @@
     display: grid;
     grid-template-columns: auto;
     gap: 5px;
+    /* max-height: 15rem; */
+    overflow-y: auto;
+    /* Firefox */
+        scrollbar-width: none;
+    
+        /* IE y Edge */
+        -ms-overflow-style: none;
 }
 
 .card {
@@ -44,7 +51,7 @@
 }
 
 .cart .products .product span {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
     color: #47484b;
     margin-bottom: 8px;
@@ -52,7 +59,7 @@
 }
 
 .cart .products .product p {
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     color: #7a7c81;
 }
@@ -102,9 +109,8 @@
 }
 
 .coupons {
-    margin-top: 2rem;
     border-radius: 7px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .coupons form {
@@ -234,39 +240,38 @@
     transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
 }
 
-/* titulo CSS */
 
-.typing-animation-container {
-    overflow: hidden;
-    /* Oculta el texto que se está escribiendo */
-    white-space: nowrap;
-    /* Evita saltos de línea */
-    border-right: .15em solid orange;
-    /*  Cursor animado */
-    width: 0;
-    /* Inicialmente oculto */
-    animation: typing 10s steps(20) infinite alternate, blink .7s infinite;
-    margin-top: 10px;
-}
-
-@keyframes typing {
-    from {
-        width: 0
-    }
-
-    to {
-        width: 50%
-    }
-}
-
-@keyframes blink {
-
-    from,
-    to {
-        border-color: transparent
-    }
-
+/* EFECTO TYPEwRITE TITULO*/
+@keyframes blinkCursor {
     50% {
-        border-color: white;
+        border-right-color: transparent;
     }
+}
+
+@keyframes typeAndDelete {
+    0%,
+    10% {
+        width: 0;
+    }
+    45%,
+    55% {
+        width: 6.7em;
+    }
+    /* adjust width based on content */
+    /* 90%,
+    100% {
+        width: 0;
+    } */
+}
+
+.text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 0.2em solid black;
+    /* Cursor */
+    animation:
+        typeAndDelete 30s steps(11) infinite,
+        blinkCursor 0.5s step-end infinite alternate;
+    margin-top: 0.5em;
 }
