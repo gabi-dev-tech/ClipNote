@@ -9,7 +9,6 @@ import FormComponent from "./components/FormComponent";
 export default function App() {
   const URL = import.meta.env.VITE_API_URL;
   const [data, setData] = useState([]);
- 
 
   const getNotes = () => {
     fetch(URL)
@@ -20,8 +19,6 @@ export default function App() {
       })
       .catch((error) => console.error("Error al cargar los datos", error));
   };
-
- 
 
   const handleDelete = (titleDelete) => {
     Swal.fire({
@@ -103,7 +100,7 @@ export default function App() {
           ClipNote...
         </div>
       </div>
-      <div className="master-container max-h-[36rem] md:max-h-[22rem]">
+      <div className="master-container max-h-[26rem] md:max-h-[22rem]">
         {data.length > 0 ? (
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="data">
@@ -161,7 +158,7 @@ export default function App() {
           <Loader />
         )}
       </div>
-      <FormComponent onNotesClick={getNotes} />
+      <FormComponent onNotesClick={getNotes} data={data} />
     </div>
   );
 }

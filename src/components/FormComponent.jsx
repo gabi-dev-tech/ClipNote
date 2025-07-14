@@ -1,14 +1,23 @@
 import React from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { isTitleUnique } from "../helpers/isTitleUnique";
 
-export default function FormComponent({ onNotesClick }) {
+export default function FormComponent({ onNotesClick, data }) {
   const URL = import.meta.env.VITE_API_URL;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (isTitleUnique(title, data)) {
+      Swal.fire({
+        icon: "error",
+        title: "Título duplicado",
+        text: `Ya existe una nota con el título "${title}". Por favor, elige otro título.`,
+      });
+      return;
+    }
     fetch(URL, {
       method: "POST",
       headers: {
