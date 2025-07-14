@@ -100,7 +100,7 @@ export default function App() {
           ClipNote...
         </div>
       </div>
-      <div className="master-container max-h-[26rem] md:max-h-[22rem]">
+      <div className="master-container min-h-[26rem] max-h-[26rem] md:max-h-[22rem]">
         {data.length > 0 ? (
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="data">
